@@ -17,6 +17,7 @@
   <build>
     <plugins>
         <plugin>
+            <!--need to add the groupId, of appassembler-maven-plugin, no need to add maven dependency-->
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>appassembler-maven-plugin</artifactId>
             <version>1.9</version>
@@ -33,7 +34,23 @@
                 <programs>
                     <program>
                         <id>App</id>
+                        <!--define the main class to generate start scripts for-->
                         <mainClass>com.zhuohuawu.App</mainClass>
+                        <jvmSettings>
+                            <initialMemorySize>20m</initialMemorySize>
+                            <maxMemorySize>256m</maxMemorySize>
+                            <maxStackSize>128m</maxStackSize>
+                            <systemProperties>
+                                <systemProperty>anton=2345</systemProperty>
+                                <systemProperty>berta="xaz"</systemProperty>
+                            </systemProperties>
+                            <extraArguments>
+                                <extraArgument>-Dtest=false</extraArgument>
+                                <extraArgument>-Dlog4j.properties=false</extraArgument>
+
+                            </extraArguments>
+                        </jvmSettings>
+
                     </program>
                 </programs>
                 <repositoryLayout>flat</repositoryLayout>
@@ -46,6 +63,7 @@
         </plugin>
 
         <plugin>
+            <!--to pack the appassembler folder into a tar file defined in assembly.xml file-->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
             <executions>
@@ -63,7 +81,6 @@
                 </descriptors>
             </configuration>
         </plugin>
-
 
     </plugins>
   </build>
